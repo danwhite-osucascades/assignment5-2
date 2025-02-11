@@ -1,0 +1,39 @@
+{
+    "myTiles.transparency16": {
+        "id": "myTiles.transparency16",
+        "data": "hwQQABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+        "dataEncoding": "base64",
+        "namespace": "myTiles.",
+        "mimeType": "image/x-mkcd-f4",
+        "tilemapTile": true
+    },
+    "myTiles.tile1": {
+        "id": "myTiles.tile1",
+        "data": "hwQQABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+        "dataEncoding": "base64",
+        "namespace": "myTiles.",
+        "mimeType": "image/x-mkcd-f4",
+        "tilemapTile": true,
+        "displayName": "myTile"
+    },
+    "level1": {
+        "id": "level1",
+        "data": "MTAxMDAwMTAwMDAzMDYwNjA2MDYwNjA2MDYwNjA2MDYwNjA2MDYwNjAyMDcwOTA5MDkwOTA5MDkwOTA5MDkwOTA5MDkwOTA5MDUwNzA5MDkwOTA5MDkwOTA5MDkwOTA5MDkwOTA5MDkwNTA3MDkwOTA5MDkwOTA5MDkwOTA5MDkwOTA5MDkwOTA1MDcwOTA5MDkwOTA5MDkwOTA5MDkwOTA5MDkwOTA5MDUwNzA5MDkwOTA5MDkwOTA5MDkwOTA5MDkwOTA5MDkwNTA3MDkwOTA5MDkwOTA5MDkwOTA5MDkwOTA5MDkwOTA1MDcwOTA5MDkwOTA5MDkwOTA5MDkwOTA5MDkwOTA5MDUwNzA5MDkwOTA5MDkwOTA5MDkwOTA5MDkwOTA5MDkwNTA3MDkwOTA5MDkwOTA5MDkwOTA5MDkwOTA5MDkwOTA1MDcwOTA5MDkwOTA5MDkwOTA5MDkwOTA5MDkwOTA5MDUwNzA5MDkwOTA5MDkwOTA5MDkwOTA5MDkwOTA5MDkwNTA3MDkwOTA5MDkwOTA5MDkwOTA5MDkwOTA5MDkwOTA1MDcwOTA5MDkwOTA5MDkwOTA5MDkwOTA5MDkwOTA5MDUwNzA5MDkwOTA5MDkwOTA5MDkwOTA5MDkwOTA5MDkwNTA0MDgwODA4MDgwODA4MDgwODA4MDgwODA4MDgwODAxMjIyMjIyMjIyMjIyMjIyMjAyMDAwMDAwMDAwMDAwMjAwMjAwMDAwMDAwMDAwMDIwMDIwMDAwMDAwMDAwMDAyMDAyMDAwMDAwMDAwMDAwMjAwMjAwMDAwMDAwMDAwMDIwMDIwMDAwMDAwMDAwMDAyMDAyMDAwMDAwMDAwMDAwMjAwMjAwMDAwMDAwMDAwMDIwMDIwMDAwMDAwMDAwMDAyMDAyMDAwMDAwMDAwMDAwMjAwMjAwMDAwMDAwMDAwMDIwMDIwMDAwMDAwMDAwMDAyMDAyMDAwMDAwMDAwMDAwMjAwMjAwMDAwMDAwMDAwMDIwMjIyMjIyMjIyMjIyMjIyMg==",
+        "dataEncoding": "base64",
+        "namespace": "myTiles.",
+        "mimeType": "application/mkcd-tilemap",
+        "displayName": "level",
+        "tileset": [
+            "myTiles.transparency16",
+            "sprites.castle.tilePath9",
+            "sprites.castle.tilePath3",
+            "sprites.castle.tilePath1",
+            "sprites.castle.tilePath7",
+            "sprites.castle.tilePath6",
+            "sprites.castle.tilePath2",
+            "sprites.castle.tilePath4",
+            "sprites.castle.tilePath8",
+            "sprites.castle.tilePath5"
+        ]
+    }
+}
