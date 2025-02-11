@@ -15,9 +15,15 @@ let playerSprite = sprites.create(assets.animation`playerFront`[0], SpriteKind.P
 controller.moveSprite(playerSprite, 80 , 80)
 scene.cameraFollowSprite(playerSprite)
 
+info.setScore(0)
+
 // this is the initial direction of the player
 let direction = "None"
 
+const PLAYERBUFFER = 60
+const FOODBUFFER = 20
+const FOODSPAWN = 500
+const ENEMYSPAWN = 3000
 
 // store the food images in an array
 let foodImages = [
@@ -30,13 +36,19 @@ let foodImages = [
 
 
 // this is how fast the food will spawn
-let foodSpawn = 200
+
 
 // This runs every foodSpawn number of milleseconds
-game.onUpdateInterval(foodSpawn, () => {
+game.onUpdateInterval(FOODSPAWN, () => {
     // call the spawn food function to randomly spawn food
     spawnFood()
 })
+
+game.onUpdateInterval(ENEMYSPAWN, () => {
+    // call the spawn food function to randomly spawn food
+    spawnEnemy()
+})
+
 
 game.onUpdate(() => {
     // Code in this function will run once per frame. MakeCode
@@ -71,28 +83,125 @@ game.onUpdate(() => {
         playerSprite.setImage(assets.animation`playerFront`[0])
     }
 
+    // let enemySprites = sprites.allOfKind(SpriteKind.Enemy)
+    // for (let i = 0; i < enemySprites.length; i++){
+    //     enemySprites[i]
+        
+    //     animateEnemy(enemySprites[i])
+
+    // }
+
 });
 
+function spawnEnemy() {
 
+    let valid = false
+    let xOffset = tileWidth + assets.animation`enemyLeft`[0].width
+    let yOffset = tileHeight + assets.animation`enemyLeft`[0].height
+    let randX
+    let randY
+    while (!valid) {
+        valid = true
+        // choose a random position anywher on the map
+        randX = randint(xOffset, totalWidth - xOffset)
+        randY = randint(yOffset, totalHeight - yOffset)
+
+        let distance = getDistance(playerSprite.x, playerSprite.y, randX, randY)
+        if (distance < PLAYERBUFFER) {
+            valid = false
+        }
+    }
+
+
+
+    let enemySprite = sprites.create(assets.animation`enemyLeft`[0], SpriteKind.Enemy)
+    enemySprite.setPosition(randX, randY)
+    enemySprite.follow(playerSprite, 60, 50)
+
+    animateEnemy(enemySprite)
+
+
+}
+
+function animateEnemy(enemySprite: Sprite) {
+    if (enemySprite.x < playerSprite.x) {
+        // face right
+        animation.runImageAnimation(enemySprite, assets.animation`enemyRight`, 200, true)
+    }
+    else {
+        animation.runImageAnimation(enemySprite, assets.animation`enemyLeft`, 200, true)
+    }
+}
 
 function spawnFood() {
     // choose a random integer between 0 and 1 less than the length of the food images
     let r = randint(0, foodImages.length - 1)
     
-    // create a sprite using a random image selected from the foodImages array
-    let foodSprite = sprites.create(foodImages[r], SpriteKind.Food)
+    
 
     // Set the xOffset and yOffset so the food doesn't spawn in the walls
     let xOffset = tileWidth + foodImages[r].width
     let yOffset = tileHeight + foodImages[r].height
 
-    // choose a random position anywher on the map
-    let randX = randint(xOffset, totalWidth - xOffset)
-    let randY = randint(yOffset, totalHeight - yOffset)
+    let valid = false
+    let randX
+    let randY
+    let foodSprites = sprites.allOfKind(SpriteKind.Food)
+    let counter = 0
+    while (!valid) {
+        counter++
+        if (counter > 100) {
+            return
+        }
+        valid = true
+        // choose a random position anywher on the map
+        randX = randint(xOffset, totalWidth - xOffset)
+        randY = randint(yOffset, totalHeight - yOffset)
+        // Call the getDistance function to get the distance between
+        // randX randY and the player's position
+        let distance = getDistance(playerSprite.x, playerSprite.y, randX, randY)
+        if (distance < PLAYERBUFFER) {
+            valid = false
+        }
+        // Also check distances from each foodsprite to randX randY
+        // only spawn food if it's not inside of the buffer for the player
+        // or the other foodsprites
+        for (let i = 0; i < foodSprites.length; i++){
+            let distance = getDistance(foodSprites[i].x, foodSprites[i].y, randX, randY)
+            if (distance < FOODBUFFER) {
+                valid = false
+            }
+        }
 
+
+    }
+
+    // create a sprite using a random image selected from the foodImages array
+    let foodSprite = sprites.create(foodImages[r], SpriteKind.Food)
     foodSprite.setPosition(randX, randY)
     
 }
+
+function getDistance(x1: number, y1: number, x2: number, y2: number) {
+    let dx = x2 - x1
+    let dy = y2 - y1
+    let distance = Math.sqrt(dx * dx + dy * dy)
+    return distance
+}
+
+sprites.onOverlap(SpriteKind.Player, SpriteKind.Food, (sprite: Sprite, otherSprite: Sprite) => {
+    otherSprite.destroy()
+    info.changeScoreBy(1)
+})
+
+sprites.onOverlap(SpriteKind.Enemy, SpriteKind.Food, (sprite: Sprite, otherSprite: Sprite) => {
+    otherSprite.destroy()
+    info.changeScoreBy(-1)
+})
+
+sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy, (sprite: Sprite, otherSprite: Sprite) => {
+    game.gameOver(true)
+})
 
 
 // controller.down.onEvent(ControllerButtonEvent.Pressed, () => {
